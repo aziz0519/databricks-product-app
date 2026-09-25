@@ -44,7 +44,7 @@ const METRICS_SUBQUERY =
     enriched.product_id,
     COUNT(*) as review_count,
     AVG(review.rating) as avg_rating,
-    100.0 * SUM(CASE WHEN enriched.sentiment = 'negative' THEN 1 ELSE 0 END)
+    100.0 * SUM(CASE WHEN enriched.sentiment = 'negative' THEN 1 ELSE 0 END) / COUNT(*) AS negative_pct
 FROM 
     ${CATALOG}.core.enriched_reviews enriched
 JOIN

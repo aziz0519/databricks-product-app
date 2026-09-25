@@ -34,7 +34,7 @@ function buildProductMetrics(row: MetricsRow | undefined){
     const healthStatus = computeHealthStatus(productMetrics)
 }
 
-export function healthLabel(healthStatus, HealthStatus): string {
+export function healthLabel(healthStatus: HealthStatus): string {
     switch (healthStatus) {
         case "critical":
             return "Critical";
