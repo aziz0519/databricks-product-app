@@ -93,8 +93,8 @@ productsRouter.get("/products", async(_req,res)=>{
         })
 
     } catch(error) {
-        const message = error instanceof Error ? error.message : "Failed to load products"
-        res.status(500).json({error: message})
+        console.error("Failed to load products:", error)
+        res.status(500).json({error: "Failed to load products"})
 
     }
 })
