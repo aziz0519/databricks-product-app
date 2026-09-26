@@ -2,6 +2,7 @@ import { Router } from "express";
 import { queryDatabricks } from "../databricks/sql.js";
 import { CATALOG } from "../config.js";
 import { computeHealthStatus, healthLabel } from "../health/rules.js";
+import { parseComplaintCategory } from "../utils/complaintCategory.js";
 
 
 
@@ -86,10 +87,14 @@ productsRouter.get("/products", async(_req,res)=>{
                 name: product.name,
                 category: product.category,
                 ...buildProductMetrics(product),
+                topComplaint: parseComplaintCategory(product.top_complaint),
+                flagged: false
             }))
         })
 
     } catch(error) {
+        const message = error instanceof Error ? error.message : "Failed to load products"
+        res.status(500).json({error: message})
 
     }
 })
